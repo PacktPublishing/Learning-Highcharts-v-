@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Highcharts drill down and filtering</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+
+  <script src="http://code.highcharts.com/modules/drilldown.js"></script>
+
+  <script type='text/javascript'>
+    $(document).ready(function() {
+
+      $(function() {
+
+        $('#container').highcharts({
+          chart: {
+            type: 'column'
+          },
+          title: {
+            text: 'Mobile app usage'
+          },
+          xAxis: {
+            type: 'category'
+          },
+          legend: {
+            enabled: false
+          },
+          lang: {
+            drillUpText: 'Go Back to:  {series.name}'
+          },
+
+          plotOptions: {
+            series: {
+              dataLabels: {
+                enabled: true
+              }
+            }
+          },
+
+          series: [{
+            name: 'Mobile users',
+            colorByPoint: true,  //
+            data: [{
+              name: 'iOS',
+              y: 187700,
+              drilldown: 'ios'
+            }, {
+              name: 'Android',
+              y: 280800,
+              drilldown: 'android'
+            }, {
+              name: 'Windows Phone',
+              y: 42000,
+              drilldown: 'windowsphone'
+            }]
+          }],
+          drilldown: {
+            series: [{
+              id: 'ios',
+              name: 'iOS users',
+              data: [
+                ['iOS 6', 3200],
+                ['iOS 7', 40000],
+                ['iOS 8', 144500]
+              ],
+
+            }, {
+              id: 'android',
+              name: 'Android users',
+              data: [
+                ['Android 3', 3000],
+                ['Android 4', 190000],
+                ['Android 5', 87800]
+              ]
+            }, {
+              id: 'windowsphone',
+              name: 'Windows Phone users',
+              data: [
+                ['Windows Phone 7.5', 38000],
+                ['Windows Phone 8', 4000]
+              ]
+            }]
+          }
+
+        });
+      });
+
+    });
+  </script>
+</head>
+
+<body>
+
+  <div id="container" style="width: 720px; height: 480px; margin: 0 auto"></div>
+
+</body>
+
+</html>

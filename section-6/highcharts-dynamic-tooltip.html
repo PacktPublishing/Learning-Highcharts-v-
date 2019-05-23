@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Dynamic tooltips </title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+
+
+	<script type='text/javascript'>
+
+		$(document).ready(function()  {
+			$('#container').highcharts({
+
+				chart: {
+					type: 'spline',
+					events: { click:
+						function(event) {
+							//get the value for clicked point
+							var xvalue = $('.button').data("remove");
+							//get the index of the x value
+							var pindex = this.series[0].xData.indexOf(xvalue);
+							//remove point by index
+							this.series[0].removePoint(pindex);
+							//redraw chart so it will animate nicely
+							this.redraw();
+						}
+					}
+				},
+
+				title: {
+					text: 'Dynamic tooltips'
+				},
+
+				tooltip: {
+					useHTML: true,
+					pointFormat:"Y-value: {point.y} <br>X-value: {point.x} <br><button class='button' data-remove='{point.x}'>Remove point</button>",
+					},
+
+				series: [{
+					name: 'Sample data',
+					data: [
+						[0,107],[1,132],[2,127],[3,151],[4,114],[5,175],[6,108],[7,147],[8,151],[9,153],[10,168],[11,131],[12,128],[13,117],[14,105],[15,133],[16,173],[17,164],[18,115],[19,140],[20,108],[21,171],[22,172],[23,181],[24,150],[25,145],[26,121],[27,156],[28,120],[29,139],[30,113],[31,183],[32,148],[33,161],[34,166],[35,158],[36,143],[37,176],[38,168],[39,114],[40,146],[41,103],[42,138],[43,124],[44,154],[45,170],[46,139],[47,130],[48,121],[49,123],[50,104],[51,119],[52,132],[53,101],[54,182],[55,121],[56,140],[57,112],[58,129],[59,122],[60,142],[61,121],[62,185],[63,153],[64,179],[65,136],[66,105],[67,111],[68,162],[69,122],[70,128],[71,114],[72,130],[73,174],[74,184],[75,151],[76,170],[77,168],[78,163],[79,161],[80,147],[81,114],[82,170],[83,132]
+						]
+					}
+
+				]
+
+			});
+
+		});
+
+	</script>
+</head>
+
+<body>
+
+	<div id="container" style="width:100%; height:400px;"></div>
+
+</body>
+
+</html>

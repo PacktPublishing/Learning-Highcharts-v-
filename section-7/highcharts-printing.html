@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Printing charts</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+
+
+
+	<script type='text/javascript'>
+		$(function() {
+			$('#container').highcharts({
+				chart: {
+					type: 'column'
+				},
+				title: {
+					text: 'Printing charts'
+				},
+				xAxis: {
+					type: 'category'
+				},
+				series: [{
+					name: 'Mobile users',
+					colorByPoint: true,
+					data: [{
+						name: 'iOS',
+						y: 187700
+					}, {
+						name: 'Android',
+						y: 280800
+					}, {
+						name: 'Windows Phone',
+						y: 42000
+					}]
+				}]
+
+			});
+
+			// the button handler
+			$('#button').click(function () {
+				var chart = $('#container').highcharts();
+				$('#button,.no-print').hide();
+				chart.setSize(1000,400, false);
+				window.print();
+				setTimeout(function() {
+					chart.setSize(900,400, false);
+					$('#button,.no-print').show();
+				}, 1000);
+			});
+
+
+		});
+
+	</script>
+</head>
+
+<body>
+<div id="printable">
+
+	<div id="container" style="width:900px; height:400px;"></div>
+
+	<h3>Other HTML element on the page we want to print with the chart.</h3>
+	<h3 class="no-print">We don't want to print this part.</h3>
+	</div>
+
+	<button id="button">Print chart</button>
+</body>
+
+</html>

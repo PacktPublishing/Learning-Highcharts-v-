@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Highcharts CSV, XML, JSON</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+
+
+
+	<script type='text/javascript'>
+		$(document).ready(function() {
+
+			var options = {
+				chart: {
+					renderTo: 'container',
+					type: 'column'
+				},
+				title: {
+					text: 'Mobile App usage'
+				},
+				xAxis: {
+					categories: []
+				},
+				yAxis: {
+					title: {
+						text: 'Unique app start'
+					}
+				},
+				series: [{}]
+			};
+
+/*
+			//processing CSV
+			$.get('data.csv', function(data) {
+				// Split the lines
+				var lines = data.split('\n');
+				$.each(lines, function(lineNo, line) {
+					var items = line.split(',');
+
+					// header line containes categories
+					if (lineNo == 0) {
+						$.each(items, function(itemNo, item) {
+							if (itemNo > 0) options.xAxis.categories.push(item);
+						});
+					}
+
+					// the rest of the lines contain data with their name in the first position
+					else {
+						var series = {
+							data: []
+						};
+						$.each(items, function(itemNo, item) {
+							if (itemNo == 0) {
+								series.name = item;
+							} else {
+								series.data.push(parseFloat(item));
+							}
+						});
+
+						options.series.push(series);
+
+					}
+
+				});
+				//add suffix to title
+				options.title.text = options.title.text +' CSV';
+
+				var chart = new Highcharts.Chart(options);
+			});
+
+*/
+/*
+			// Load the data from the XML file
+			$.get('data.xml', function(xml) {
+
+				// Split the lines
+				var $xml = $(xml);
+
+				// push categories
+				$xml.find('categories item').each(function(i, category) {
+					options.xAxis.categories.push($(category).text());
+				});
+
+				// push series
+				$xml.find('series').each(function(i, series) {
+
+					var seriesOptions = {
+						name: $(series).find('name').text(),
+						data: []
+					};
+
+					// push data points
+					$(series).find('data point').each(function(i, point) {
+						seriesOptions.data.push(
+							parseInt($(point).text())
+						);
+					});
+
+
+					// add it to the options
+					options.series.push(seriesOptions);
+				});
+
+				//add suffix to title
+				options.title.text = options.title.text +' XML';
+
+				var chart = new Highcharts.Chart(options);
+			});*/
+
+			// Load the data from the JSON file
+			//add suffix to title
+			options.title.text = options.title.text +' JSON';
+			setInterval(function(){
+			$.getJSON('data.json', function(data) {
+
+				options.series[0].data = data;
+
+				var chart = new Highcharts.Chart(options);
+				console.log('Chart updated');
+			});
+			}, 5000);
+
+		});
+	</script>
+</head>
+
+<body>
+
+	<div id="container" style="width:100%; height:400px;"></div>
+
+</body>
+
+</html>

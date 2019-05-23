@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Creating master details graphs</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+
+
+	<script type='text/javascript'>
+	$(function () {
+    var data = 	[
+				[0,107],[1,132],[2,127],[3,151],[4,114],[5,175],[6,108],[7,147],[8,151],[9,153],[10,168],[11,131],[12,128],[13,117],[14,105],[15,133],[16,173],[17,164],[18,115],[19,140],[20,108],[21,171],[22,172],[23,181],[24,150],[25,145],[26,121],[27,156],[28,120],[29,139],[30,113],[31,183],[32,148],[33,161],[34,166],[35,158],[36,143],[37,176],[38,168],[39,114],[40,146],[41,103],[42,138],[43,124],[44,154],[45,170],[46,139],[47,130],[48,121],[49,123],[50,104],[51,119],[52,132],[53,101],[54,182],[55,121],[56,140],[57,112],[58,129],[59,122],[60,142],[61,121],[62,185],[63,153],[64,179],[65,136],[66,105],[67,111],[68,162],[69,122],[70,128],[71,114],[72,130],[73,174],[74,184],[75,151],[76,170],[77,168],[78,163],[79,161],[80,147],[81,114],[82,170],[83,132],[84,145],[85,151],[86,180],[87,182],[88,118],[89,112],[90,127],[91,121],[92,152],[93,136],[94,159],[95,156],[96,111],[97,144],[98,121],[99,184],[100,169],[101,101],[102,165],[103,148],[104,103],[105,102],[106,132],[107,122],[108,175],[109,112],[110,175],[111,136],[112,161],[113,138],[114,136],[115,178],[116,147],[117,147],[118,168],[119,100],[120,174],[121,144],[122,113],[123,153],[124,151],[125,184],[126,122],[127,104],[128,120],[129,185],[130,127],[131,114],[132,166],[133,113],[134,103],[135,126],[136,153],[137,151],[138,157],[139,126],[140,169],[141,176],[142,176],[143,145],[144,164],[145,108],[146,180],[147,168],[148,138],[149,175],[150,145],[151,138],[152,130],[153,122],[154,176],[155,130],[156,139],[157,176],[158,162],[159,173],[160,118],[161,171],[162,121],[163,165],[164,151],[165,158],[166,118],[167,137],[168,105],[169,145],[170,170],[171,164],[172,151],[173,185],[174,166],[175,186],[176,157],[177,110],[178,125],[179,104],[180,118]
+				];
+
+    var masterChart, detailChart;
+
+    $(document).ready(function() {
+
+        // create the master chart
+        function createMaster() {
+            masterChart = $('#master-container').highcharts({
+                chart: {
+                    reflow: false,
+                    borderWidth: 0,
+                    backgroundColor: null,
+                    marginLeft: 50,
+                    marginRight: 20,
+                    zoomType: 'x',
+										events: {
+
+                        // listen to the selection event on the master chart to update the detail chart
+                        selection: function(event) {
+                            var extremesObject = event.xAxis[0],
+														min = extremesObject.min,
+														max = extremesObject.max,
+														detailData = [],
+														xAxis = this.xAxis[0];
+
+                            jQuery.each(this.series[0].data, function(i, point) {
+                                if (point.x > min && point.x < max) {
+                                    detailData.push({
+                                        x: point.x,
+                                        y: point.y
+                                    });
+                                }
+                            });
+
+                            // move the plot bands to reflect the new detail span
+                            xAxis.removePlotBand('mask-before');
+                            xAxis.addPlotBand({
+                                id: 'mask-before',
+                                from: 0,
+                                to: min,
+                                color: 'rgba(0, 0, 0, 0.2)'
+                            });
+
+                            xAxis.removePlotBand('mask-after');
+                            xAxis.addPlotBand({
+                                id: 'mask-after',
+                                from: max,
+                                to: 200,
+                                color: 'rgba(0, 0, 0, 0.2)'
+                            });
+
+
+                            detailChart.series[0].setData(detailData);
+
+                            return false;
+                        }
+                    },
+
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: [],
+                    showLastTickLabel: true,
+                    tickInterval: 10,
+
+					//master chart initial unselected part
+                    plotBands: [{
+                        id: 'mask-after',
+                        from: 100,
+                        to: 200,
+                        color: 'rgba(0, 0, 0, 0.2)'
+                    }],
+                    title: {
+                        text: null
+                    }
+                },
+                yAxis: {
+                    gridLineWidth: 0,
+                    labels: {
+                        enabled: false
+                    },
+                    title: {
+                        text: null
+                    },
+                    min: 0.6,
+                    showFirstLabel: false
+                },
+                tooltip: {
+                    formatter: function() {
+                        return false;
+                    }
+                },
+				//do not have space for legend and credits
+                legend: {
+                    enabled: false
+                },
+                credits: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        turboThreshold: 0,
+                        lineWidth: 1,
+                        marker: {
+                            enabled: false
+                        },
+                        shadow: false,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+
+                series: [{
+                    type: 'spline',
+                    data: data
+                }],
+
+            }, function(masterChart) { //callback function to create detail chart
+                createDetail(masterChart)
+            })
+            .highcharts(); // return chart instance
+        }
+
+        // create the detail chart
+        function createDetail(masterChart) {
+
+            // prepare the detail chart with initial selected values
+            var detailData = [],
+                detailStart = 0,
+                detailEnd = 100;
+
+            jQuery.each(masterChart.series[0].data, function(i, point) {
+                if (point.x >= detailStart && point.x <= detailEnd) {
+                    detailData.push(point.y);
+                }
+            });
+
+            // create a detail chart with a reference global variable
+            detailChart = $('#detail-container').highcharts({
+                chart: {
+                    marginBottom: 120,
+                    reflow: false,
+                    marginLeft: 50,
+                    marginRight: 20,
+                    style: {
+                        position: 'absolute'
+                    }
+                },
+                title: {
+                    text: 'Creating master details graphs'
+                },
+
+                xAxis: {
+                    categories: [],
+                    labels: {
+                        maxStaggerLines: 1
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: null
+                    },
+                    maxZoom: 0.1
+                },
+                legend: {
+                    enabled: false
+                },
+
+                series: [{
+                    name: 'Detail data',
+                    data: detailData
+                }],
+
+                exporting: {
+                    enabled: false
+                }
+
+            }).highcharts(); // return chart
+        }
+
+        // make the container smaller and add a second container for the master chart
+        var $container = $('#container')
+            .css('position', 'relative');
+
+        var $detailContainer = $('<div id="detail-container">')
+            .appendTo($container);
+
+        var $masterContainer = $('<div id="master-container">')
+            .css({ position: 'absolute', top: 300, height: 100, width: '100%' })
+            .appendTo($container);
+
+        // create master and in its callback, create the detail chart
+        createMaster();
+
+
+		// redraw chart on button click
+		var $resetButton = $('<button id="button">Reset</button>')
+			.css({ position: 'absolute', top: 10, right: 10, 'z-index':100})
+			.appendTo($container);
+
+		$resetButton.click(function () {
+			createMaster();
+
+		});
+    });
+
+});
+	</script>
+</head>
+
+<body>
+
+	<div id="container"> </div>
+
+
+</body>
+
+</html>

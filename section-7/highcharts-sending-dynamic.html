@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>E-mailing dynamic charts</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+
+	<script type='text/javascript'>
+
+		//Function to get url parameter
+		$.urlParam = function(name){
+			var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+			if (results==null){
+				return null;
+			}
+			else{
+				return results[1] || 0;
+			}
+		}
+
+		var charttitle = 'Default chart title';
+
+		if ($.urlParam('title') != null) {
+			charttitle = decodeURIComponent($.urlParam('title'))
+			}
+
+
+
+		$(function() {
+			$('#container').highcharts({
+				chart: {
+					type: 'column'
+				},
+				title: {
+					text: charttitle
+				},
+				xAxis: {
+					type: 'category'
+				},
+
+				series: [{
+					name: 'Mobile users',
+					colorByPoint: true,
+					data: [{
+						name: 'iOS',
+						y: 187700
+					}, {
+						name: 'Android',
+						y: 280800
+					}, {
+						name: 'Windows Phone',
+						y: 42000
+					}]
+				}]
+
+			});
+		});
+	</script>
+</head>
+
+<body>
+
+	<div id="container" style="width:100%; height:400px;"></div>
+
+</body>
+
+</html>

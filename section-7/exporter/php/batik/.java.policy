@@ -1,0 +1,6 @@
+grant {
+
+  permission java.io.FilePermission ""c:\localhost\htdocs\highcharts-course\section-7\exporter\php\temp\", "read,write";
+        permission java.util.PropertyPermission  "*", "read,write";
+        permission java.lang.RuntimePermission "accessDeclaredMembers";
+};

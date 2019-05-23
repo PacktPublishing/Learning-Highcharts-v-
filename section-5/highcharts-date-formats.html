@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Highcharts date formats</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+
+	<script type='text/javascript'>
+			
+		$(document).ready(function() {
+			var data = [
+						['2014-08-10', 165],
+						['2014-08-11', 169],
+						['2014-08-12', 157],
+						['2014-08-13', 173],
+						['2014-08-14', 159],
+						['2014-08-15', 174],
+						['2014-08-16', 161],
+						['2014-08-17', 175],
+						['2014-08-18', 178],
+						['2014-08-19', 177],
+						['2014-08-20', 152]
+					];
+			var options = {
+				chart: {
+					renderTo: 'container',
+					type: 'spline'
+				},
+				title: {
+					text: 'Date format'
+				},
+				xAxis: {
+					type: 'datetime',
+					 formatter: function() {
+					
+                return dateFormat('%Y %m', this.value);
+            }
+				},
+				yAxis: {
+					title: {
+						text: 'Unique app start'
+					}
+				},
+				series: [{
+				data: (function(){
+					var newData = [];
+					var elem;
+					for (var i=0; i < data.length; i++) {
+					elem = data[i];
+						newData.push([Date.parse(elem[0]), elem[1]]);
+					}
+					return newData;
+				}())
+				}]
+				
+			};
+			
+			var chart = new Highcharts.Chart(options);
+			
+		});
+
+	</script>
+</head>
+
+<body>
+
+	<div id="container" style="width:100%; height:400px;"></div>
+
+</body>
+
+</html>

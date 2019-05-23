@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>jQuery mobile standard structure</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+</head>
+
+<body>
+<div data-role="page" id="page1">
+
+	<div data-role="header">
+		<h1>Page 1 Title</h1>
+	</div>	
+	
+	<div data-role="content">	
+		<ul data-role="listview" data-inset="true">   
+			<li><a href="#page1">Page 1</a></li>    
+			<li><a href="#page2">Page 2</a></li> 
+		</ul> 
+	</div>
+
+	<div data-role="footer">
+		<h4>Page Footer</h4>
+	</div>
+
+</div>
+
+<div data-role="page" id="page2">
+
+	<div data-role="header">
+		<h1>Page 2 Title</h1>
+	</div>	
+
+	<div data-role="content">	
+		<p>Page content 2 goes here. <a href="#" data-rel="back" data-role="button">back to Page 1</a></p>		
+	</div>
+
+	<div data-role="footer">
+		<h4>Page 2 Footer</h4>
+	</div>
+
+</div>
+
+</body>
+</html>

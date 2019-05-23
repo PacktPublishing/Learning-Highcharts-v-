@@ -1,0 +1,33 @@
+Section 5
+Drilling down and filtering data
+Sometimes you work with data that is not only categorical but also hierarchical. [image: hierarchical categories] 
+
+Drilling down or filtering helps digging one or more level deeper within our set of data. 
+
+Let me show you how this looks like within a Highcharts chart.
+[example screen: http://www.highcharts.com/demo/column-drilldown ]
+
+As you can see, drilling down within charts is handy when we deal with categories of data which can be further ordered into (sub)categories. When you click on a category column it disappears and reveals a new set of columns. And then you click the Back button and this set disappears and the previous shows up.  
+This is all handled by Highcharts' Drilldown.js module and this is what we will use.
+
+To get started with the drilldown module, just paste this line of code under the part where you import the highcharts.js: 
+<script src="http://code.highcharts.com/modules/drilldown.js"></script>
+Obviously, this imports from a remote source, so if you need to work offline, download all Highcharts JS files to your local directory and refer to those in your file.
+
+This is how my prepared HTML looks like:
+[screen: code editor]
+I added a simple column chart example. In my example, I want to see the statistics of a company's mobile website usage. I not only want to see whether people use Android, iOS or Windows Phone devices but also which OS version. In this case I expect to be able to click on a column to see more information about the usage of that OS.
+So I gathered the data in its proper order. Let me paste it, and explain what's going on here:
+[screen: code editor]
+As you can see, we have a general array of data for the series. If we want to hook a category to a drilldown subcategory, first we need to assign a drilldown id to each series.
+After the name and value parameters we add the drilldown identifier.
+Then we need to add the drilldown part with  the subcategories, which is an array of datasets.
+Each series within the drilldown needs a back-referencing id to its parent. You can also add a name to it, which you can see on the column tooltip before its value. The data array provides the name and value pair of the subcategory elements.
+After saving you can refresh your sample file and see how it works. If you click on a column anywhere - a new set of columns shows up and a back-button on the upper right corner. If you want to change the text on the button (translate), you can set this in the chart's language options adding this line:
+
+lang: {
+    drillUpText: 'Go Back to:  {series.name}'
+    },
+
+Hit refresh and that's it.
+

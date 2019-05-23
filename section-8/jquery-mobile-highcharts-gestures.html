@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Highcharts and jQuery Mobile - gestures</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/modules/drilldown.js"></script>
+</head>
+
+<body>
+<div data-role="page" id="page1">
+
+	<div data-role="header">
+		<h1>Page 1 Title</h1>
+	</div>
+
+	<div data-role="content">
+		<ul data-role="listview" data-inset="true">
+			<li><a href="#page1">Page 1</a></li>
+			<li><a href="#page2">Page 2</a></li>
+		</ul>
+
+		<div id="container1"></div>
+
+	</div>
+
+	<div data-role="footer">
+		<h4>Page Footer</h4>
+	</div>
+
+</div>
+
+<div data-role="page" id="page2">
+
+	<div data-role="header">
+		<h1>Page 2 Title</h1>
+	</div>
+
+	<div data-role="content">
+		<div id="container2"></div>
+		<a href="#" data-rel="back" data-role="button">back to Page 1</a>
+	</div>
+
+	<div data-role="footer">
+		<h4>Page 2 Footer</h4>
+	</div>
+
+</div>
+<script type="text/javascript">
+		//loading chart on page show
+		$('#page1').on('pageshow', function() {
+
+			var options = {
+				chart: {
+					type: 'column',
+					zoomType: 'xy'
+				},
+				title: {
+					text: 'Mobile app usage'
+				},
+				xAxis: {
+					type: 'category'
+				},
+				legend: {
+					enabled: false
+				},
+				lang: {
+					drillUpText: 'Go back to:  {series.name}'
+				},
+
+
+				plotOptions: {
+					series: {
+						dataLabels: {
+							enabled: true
+						}
+					}
+				},
+
+				series: [{
+					name: 'Mobile users',
+					colorByPoint: true,
+					data: [{
+						name: 'iOS',
+						y: 187700,
+						drilldown: 'ios'
+					}, {
+						name: 'Android',
+						y: 280800,
+						drilldown: 'android'
+					}, {
+						name: 'Windows Phone',
+						y: 42000,
+						drilldown: 'windowsphone'
+					}]
+				}],
+
+
+				drilldown: {
+					series: [{
+						id: 'ios',
+						name: 'iOS users',
+						data: [
+							['iOS 6', 3200],
+							['iOS 7', 40000],
+							['iOS 8', 144500]
+						],
+
+					}, {
+						id: 'android',
+						name: 'Android users',
+						data: [
+							['Android 3', 3000],
+							['Android 4', 190000],
+							['Android 5', 87800]
+						]
+					}, {
+						id: 'windowsphone',
+						name: 'Windows Phone users',
+						data: [
+							['Windows Phone 7.5', 38000],
+							['Windows Phone 8', 4000]
+						]
+					}]
+				}
+
+			};
+
+			//generate chart
+			$('#container1').highcharts(options);
+
+		});
+
+
+			//setting up chart 2 options
+			var options2 = {
+				chart: {
+					type: 'spline',
+					zoomType: 'xy'
+				},
+				title: {
+					text: 'Chart 2'
+				},
+				yAxis: {
+					title: {
+						text: 'Quantity'
+					}
+				},
+				series: [{
+					data: [
+						[51,119],[52,132],[53,101],[54,182],[55,121],[56,140],[57,112],[58,129],[59,122],[60,142],[61,121],[62,185],[63,153],[64,179],[65,136],[66,105],[67,111],[68,162],[69,122],[70,128],[71,114],[72,130],[73,174],[74,184],[75,151],[76,170],[77,168],[78,163],[79,161],[80,147],[81,114],[82,170],[83,132],[84,145],[85,151],[86,180],[87,182],[88,118],[89,112],[90,127],[91,121],[92,152],[93,136],[94,159],[95,156],[96,111],[97,144],[98,121],[99,184],[100,169]
+						]
+				}]
+
+			};
+				//generate chart2 on #page2 load
+			$('#page2').on('pageshow', function() {
+				$('#container2').highcharts(options2);
+			});
+</script>
+</body>
+</html>

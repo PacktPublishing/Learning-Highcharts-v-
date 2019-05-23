@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Highcharts data formats</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+
+
+	<script type='text/javascript'>
+		$(function() {
+			$('#container').highcharts({
+				chart: {
+					type: 'column'
+				},
+				title: {
+					text: 'Mobile app usage'
+				},
+
+				series: [{
+					name: 'Mobile users - List of values',
+					data: [187700, 280800, 42000]
+				},
+				{
+					name: 'Mobile users - Array of arrays',
+					data: [
+						[0, 187700],
+						[1, 280800],
+						[2, 42000]
+						]
+					},
+					{
+					name: 'Mobile users - Array of objects',
+					data: [
+						{name: 'Windows Phone', x: 0, y: 187700},
+						{name: 'iPhone', x: 1, y: 280800},
+						{name: 'Android Phone', x: 2, y: 42000, color:'#FF00FF'}
+						]
+					}
+				]
+
+			});
+		});
+	</script>
+</head>
+
+<body>
+
+	<div id="container" style="width:100%; height:400px;"></div>
+
+</body>
+
+</html>

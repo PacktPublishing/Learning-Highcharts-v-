@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Highcharts Example</title>
+
+		<!-- this code to include Highcharts with jQuery-->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+		<!--this code is the required highcharts javascript file -->
+		<script src="http://code.highcharts.com/highcharts.js"></script>
+
+
+		<script type="text/javascript">
+$(function () {
+    $('#container').highcharts({
+        chart: {
+						type: 'pie',
+						plotBackgroundColor: null,
+            plotBorderWidth: 3,
+            plotShadow: false
+
+        },
+        title: {
+            text: 'Browser market shares January, 2015 to May, 2015'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+								showInLegend: true
+            }
+        },
+        series: [{
+            name: "Brands",
+            colorByPoint: true,
+            data: [{
+                name: "Microsoft Internet Explorer",
+                y: 56.33
+            }, {
+                name: "Chrome",
+                y: 24.03,
+                sliced: true,
+                selected: true
+            }, {
+                name: "Firefox",
+                y: 10.38
+            }, {
+                name: "Safari",
+                y: 4.77
+            }, {
+                name: "Opera",
+                y: 0.91
+            }, {
+                name: "Proprietary or Undetectable",
+                y: 0.2
+            }]
+        }]
+    });
+});
+		</script>
+	</head>
+	<body>
+
+
+<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+	</body>
+</html>

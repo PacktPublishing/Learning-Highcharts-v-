@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<chart>
+	<categories>
+		<item>January</item>
+		<item>February</item>
+		<item>March</item>
+		<item>April</item>	
+	</categories>
+	<series>
+		<name>Windows Phone</name>
+		<data>
+			<point>811</point>
+			<point>890</point>
+			<point>791</point>
+			<point>848</point>
+		</data>
+	</series>
+	<series>
+		<name>iPhone</name>
+		<data>
+			<point>1450</point>
+			<point>1511</point>
+			<point>1562</point>
+			<point>1604</point>
+		</data>
+	</series>
+	<series>
+		<name>Android Phone</name>
+		<data>
+			<point>1790</point>
+			<point>1820</point>
+			<point>1771</point>
+			<point>1881</point>
+		</data>
+	</series>
+</chart>

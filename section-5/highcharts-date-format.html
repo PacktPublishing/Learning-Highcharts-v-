@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Highcharts date formats</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+
+	<script type='text/javascript'>
+		$(function() {
+			$('#container').highcharts({
+				chart: {
+					type: 'spline'
+				},
+				title: {
+					text: 'Date format'
+				},
+				xAxis: {
+					type: 'datetime',
+					labels: {
+						formatter: function () {
+							return Highcharts.dateFormat('%b %e. %Y', this.value, 1);
+						}
+					}
+				},
+				series: [
+					{
+					name: 'Default timestamp test',
+					data: [
+						[1407621600000, 153], //2015-08-10, UNIX ts: 1407621600
+						[1407708000000, 157],
+						[1407794400000, 166],
+						[1407880800000, 161],
+						[1407967200000, 159],
+						[1408053600000, 170],
+						[1408140000000, 159],
+						[1408226400000, 152],
+						[1408312800000, 150],
+						[1408399200000, 157],
+						[1408485600000, 156]
+					]
+					}
+				]
+
+			});
+		});
+
+	</script>
+</head>
+
+<body>
+
+	<div id="container" style="width:100%; height:400px;"></div>
+
+</body>
+
+</html>

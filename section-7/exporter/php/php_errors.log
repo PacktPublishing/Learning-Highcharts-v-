@@ -1,0 +1,5 @@
+[13-Aug-2015 20:23:25 Europe/Berlin] PHP Warning:  file_put_contents(temp/e07413354875be01a996dc560274708e.svg): failed to open stream: No such file or directory in C:\localhost\htdocs\highcharts-course\section-7\exporter\index.php on line 73
+[13-Aug-2015 20:24:22 Europe/Berlin] PHP Warning:  unlink(temp/e79bd2741d69ea13a0b6e1b5c5a05e61.png): No such file or directory in C:\localhost\htdocs\highcharts-course\section-7\exporter\index.php on line 118
+[13-Aug-2015 20:25:06 Europe/Berlin] PHP Warning:  unlink(temp/d5776aeecb3c45ab15adce6f5cb355f3.pdf): No such file or directory in C:\localhost\htdocs\highcharts-course\section-7\exporter\index.php on line 118
+[13-Aug-2015 20:25:10 Europe/Berlin] PHP Warning:  unlink(temp/b59daa00d1e1374bd65a69362493b380.jpg): No such file or directory in C:\localhost\htdocs\highcharts-course\section-7\exporter\index.php on line 118
+[13-Aug-2015 20:25:57 Europe/Berlin] PHP Warning:  unlink(temp/a8ae104615cb4e966ddb435f3e575a02.png): No such file or directory in C:\localhost\htdocs\highcharts-course\section-7\exporter\index.php on line 118

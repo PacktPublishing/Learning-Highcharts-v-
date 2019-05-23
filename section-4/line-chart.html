@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>line chart</title>
+
+	<!-- this code to include Highcharts with jQuery-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+	<!-- <script src="/js/jquery.min.js"></script> -->
+
+	<!--this code is the required highcharts javascript file -->
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+
+	<!-- <script src="/js/highcharts.js"></script> -->
+
+	<script type="text/javascript">
+		$(function() {
+			$('#container').highcharts({
+				chart: {
+						type: 'line'
+				},
+				title: {
+					text: 'Monthly Average Temperature',
+					x: -20 //center
+				},
+				subtitle: {
+					text: 'Source: WorldClimate.com',
+					x: -20
+				},
+				xAxis: {
+					categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+						'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+					]
+				},
+				yAxis: {
+					title: {
+						text: 'Temperature (°C)'
+					},
+					type: 'logarithmic',
+					minorTickInterval: 0.1,
+					plotLines: [{
+						value: 0,
+						width: 1,
+						color: '#808080'
+					}]
+				},
+				tooltip: {
+					valueSuffix: '°C'
+				},
+				legend: {
+					layout: 'vertical',
+					align: 'right',
+					verticalAlign: 'middle',
+					borderWidth: 0
+				},
+				series: [{
+					name: 'Group 1',
+					data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
+					step: 'left'
+				}, {
+					name: 'Group 2',
+					data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+				}]
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div id="container" style="width: 800px; height: 360px; margin: 0 auto"></div>
+
+</body>
+
+</html>
